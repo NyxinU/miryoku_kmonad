@@ -13,24 +13,25 @@
 
 ;; Source key layout
 (defsrc
-  q    w    e    r    t         y    u    i    o    p
-  a    s    d    f    g         h    j    k    l    ;
-  z    x    c    v    b         n    m    ,    .    /
-            esc  spc  tab       ent  bspc del
-  '
+  f1   f2   f3   f4   f5        f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  fn   lctl lalt lmet           spc            rmet ralt left down rght
 )
 
 ;; Utility definitions
 (defalias
-  mt-a (tap-hold-next-release 200 a lmet)
-  mt-r (tap-hold-next-release 200 r lalt)
-  mt-s (tap-hold-next-release 200 s lctl)
-  mt-t (tap-hold-next-release 200 t lsft)
+  mt-a (tap-hold-next-release 187 a lmet)
+  mt-r (tap-hold-next-release 187 r lalt)
+  mt-s (tap-hold-next-release 187 s lctl)
+  mt-t (tap-hold-next-release 187 t lsft)
   
-  mt-n (tap-hold-next-release 200 n rsft)
-  mt-e (tap-hold-next-release 200 e rctl)
-  mt-i (tap-hold-next-release 200 i ralt)
-  mt-o (tap-hold-next-release 200 o rmet)
+  mt-n (tap-hold-next-release 187 n rsft)
+  mt-e (tap-hold-next-release 187 e rctl)
+  mt-i (tap-hold-next-release 187 i ralt)
+  mt-o (tap-hold-next-release 187 o rmet)
   
   ;; Layer toggle definitions
   lt-nav (layer-toggle nav)
@@ -39,67 +40,77 @@
   lt-num (layer-toggle num)
   lt-sym (layer-toggle sym)
   lt-fun (layer-toggle fun)
+
+  ;; Space as navigation layer when held
+  spc-nav (tap-hold-next-release 187 spc @lt-nav)
 )
 
 ;; Base layer
 (deflayer base
-  q    w    f    p    g         j    l    u    y    '
-  @mt-a @mt-r @mt-s @mt-t d     h    @mt-n @mt-e @mt-i @mt-o
-  z    x    c    v    b         k    m    ,    .    /
-            esc  spc  tab       ent  bspc del
-  '
+  brdn brup lp   mctl bldn      blup prev pp   next mute vold volu
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    g    j    l    u    y    '    [    ]    \
+  caps @mt-a @mt-r @mt-s @mt-t d h    @mt-n @mt-e @mt-i @mt-o '    ret
+  lsft z    x    c    v    b    k    m    ,    .    /    rsft up
+  fn   lctl lalt lmet           @spc-nav            rmet ralt left down rght
 )
 
 ;; Navigation layer
 (deflayer nav
-  _    _    up   _    _         _    home up   end  pgup
-  _    left down right _        _    left down right pgdn
-  _    _    _    _    _        _    _    _    _    _
-            _    _    _        _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    up   _    _    _    home up   end  pgup _    _    _
+  _    _    left down right _    _    left down right pgdn _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; Mouse layer
 (deflayer mouse
-  _    _    _    _    _         _    _    _    _    _
-  _    _    _    _    _         _    _    _    _    _
-  _    _    _    _    _         _    _    _    _    _
-            _    _    _         _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; Media layer
 (deflayer media
-  _    _    volu _    _         _    _    _    _    _
-  _    prev vold next _         _    _    _    _    _
-  _    _    _    _    _         _    _    _    _    _
-            _    _    _         _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    volu _    _    _    _    _    _    _    _    _    _
+  _    _    prev vold next _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; Number layer
 (deflayer num
-  _    7    8    9    _         _    _    _    _    _
-  _    4    5    6    _         _    _    _    _    _
-  _    1    2    3    _         _    _    _    _    _
-            _    0    _         _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    7    8    9    _    _    _    _    _    _    _    _    _
+  _    _    4    5    6    _    _    _    _    _    _    _    _
+  _    1    2    3    _    _    _    _    _    _    _    _    _
+  _    _    _    _              0              _    _    _    _    _
 )
 
 ;; Symbol layer
 (deflayer sym
-  _    &    *    \(   _         _    _    _    _    _
-  _    $    %    ^    _         _    _    _    _    _
-  _    !    @    #    _         _    _    _    _    _
-            _    _    _         _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    &    *    \(   _    _    _    _    _    _    _    _    _
+  _    _    $    %    ^    _    _    _    _    _    _    _    _
+  _    !    @    #    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; Function layer
 (deflayer fun
-  _    f7   f8   f9   _         _    _    _    _    _
-  _    f4   f5   f6   _         _    _    _    _    _
-  _    f1   f2   f3   _         _    _    _    _    _
-            _    f10  _         _    _    _
-  _
+  _    _    _    _    _         _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    f7   f8   f9   _    _    _    _    _    _    _    _    _
+  _    _    f4   f5   f6   _    _    _    _    _    _    _    _
+  _    f1   f2   f3   _    _    _    _    _    _    _    _    _
+  _    _    _    _              f10             _    _    _    _    _
 ) 
