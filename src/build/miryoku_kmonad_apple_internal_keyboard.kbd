@@ -21,6 +21,13 @@
   fn   lctl lalt lmet           spc            rmet ralt left down rght
 )
 
+;; Below, I use `around' to compose `layer-toggle' with `fn' (instead
+;; of using `layer-toggle' directly) so that the `fn' keypress
+;; actually gets emitted. This matters when using an application that
+;; can use `fn' as a modifier (like Emacs).
+
+(defalias fn (around (layer-toggle function) fn))
+
 ;; Utility definitions
 (defalias
   mt-a (tap-hold-next-release 187 a lmet)
@@ -49,10 +56,10 @@
 (deflayer base
   brdn brup lp   mctl bldn      blup prev pp   next mute vold volu
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    f    p    g    j    l    u    y    '    [    ]    \
+  tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
   caps @mt-a @mt-r @mt-s @mt-t d h    @mt-n @mt-e @mt-i @mt-o '    ret
   lsft z    x    c    v    b    k    m    ,    .    /    rsft up
-  fn   lctl lalt lmet           @spc-nav            rmet ralt left down rght
+  @fn   lctl lalt lmet           @spc-nav            rmet ralt left down rght
 )
 
 ;; Navigation layer
