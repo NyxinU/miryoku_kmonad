@@ -1,0 +1,123 @@
+;; Copyright 2021-2022 Manna Harbour
+;; github.com/manna-harbour/miryoku
+;; generated -*- buffer-read-only: t -*-
+;; target: kmonad
+
+;; Basic definitions
+(defcfg
+  ;; For the NuPhy Air60 V2 on macOS
+  input  (iokit-name "NuPhy Air60 V2")
+  output (kext)
+  fallthrough true
+  ;; Allow unmapped keys to pass through
+  allow-cmd true
+)
+
+;; Source key layout for NuPhy Air60 V2 (compact layout)
+;; Note: Some fn combinations may send unmapped Mac keycodes
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up   del
+  lctl lalt lmet           spc            rmet fn   left down rght
+)
+
+;; Utility definitions
+(defalias
+  mt-a (tap-hold-next-release 187 a lmet)
+  mt-r (tap-hold-next-release 187 r lalt)
+  mt-s (tap-hold-next-release 187 s lctl)
+  mt-t (tap-hold-next-release 187 t lsft)
+  
+  mt-n (tap-hold-next-release 187 n rsft)
+  mt-e (tap-hold-next-release 187 e rctl)
+  mt-i (tap-hold-next-release 187 i ralt)
+  mt-o (tap-hold-next-release 187 o rmet)
+  
+  ;; Layer toggle definitions
+  lt-nav (layer-toggle nav)
+  lt-mouse (layer-toggle mouse)
+  lt-media (layer-toggle media)
+  lt-num (layer-toggle num)
+  lt-sym (layer-toggle sym)
+  lt-fun (layer-toggle fun)
+
+  ;; Space as navigation layer when held
+  spc-nav (tap-hold-next-release 187 spc @lt-nav)
+  
+  ;; Function layer toggle for function keys
+  fn-layer (layer-toggle function)
+)
+
+;; Base layer - Miryoku layout
+(deflayer base
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  @fn-layer @mt-a @mt-r @mt-s @mt-t d h    @mt-n @mt-e @mt-i @mt-o '    ret
+  lsft z    x    c    v    b    k    m    ,    .    /    rsft up   del
+  lctl lalt lmet           @spc-nav            rmet @fn-layer left down rght
+)
+
+;; Navigation layer
+(deflayer nav
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    up   _    _    _    home up   end  pgup _    _    _
+  _    _    left down right _    _    left down right pgdn _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _
+)
+
+;; Mouse layer
+(deflayer mouse
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _
+)
+
+;; Media layer
+(deflayer media
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    volu _    _    _    _    _    _    _    _    _    _
+  _    _    prev vold next _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _
+)
+
+;; Number layer
+(deflayer num
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    7    8    9    _    _    _    _    _    _    _    _    _
+  _    _    4    5    6    _    _    _    _    _    _    _    _
+  _    1    2    3    _    _    _    _    _    _    _    _    _    _
+  _    _    _              0              _    _    _    _    _
+)
+
+;; Symbol layer
+(deflayer sym
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    &    *    \(   _    _    _    _    _    _    _    _    _
+  _    _    $    %    ^    _    _    _    _    _    _    _    _
+  _    !    @    #    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _
+)
+
+;; Function layer - access to F keys and other functions
+(deflayer function
+  grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _
+)
+
+;; Fun layer (F-keys accessible via other means)
+(deflayer fun
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    f7   f8   f9   _    _    _    _    _    _    _    _    _
+  _    _    f4   f5   f6   _    _    _    _    _    _    _    _
+  _    f1   f2   f3   _    _    _    _    _    _    _    _    _    _
+  _    _    _              f10             _    _    _    _    _
+) 
